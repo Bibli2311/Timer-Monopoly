@@ -1,0 +1,30 @@
+<!DOCTYPE html>   <!-- tell browser that this is HTML5 -->
+<html>
+<head> <title> Timer </title>
+<meta charset="utf-8">
+</head>
+<body>
+<p> Timer for Monopoly </p>
+<button onclick="">  </button> <br>
+
+<script>
+let endTime = new Date("Oct 10, 2022 18:50:00").getTime()
+console.log(endTime)
+
+let intervalFunc;
+
+const timerFunc = () => {
+	intervalFunc = setInterval(function() {
+		let now = new Date().getTime()
+		let timeLeft = endTime - now
+		
+		console.log(timeLeft)
+		}, 1000)
+}
+
+
+timerFunc()
+
+</script>
+</body>
+</html>
