@@ -10,13 +10,16 @@
 	Hour: <input type="text" id="hourArgTxt"> 
 	Minute: <input type="text" id="minArgTxt"> <button onclick="retrieveTime()"> set clock time for timer </button>
 </p>
-<button onclick="">  </button> <br>
+
+<p> Time left: </p>
+<p> Hour  --- minutes  ---- seconds   </p>
+<p id="timeLeftUsr"> </p>
 
 <script>
-let endTime = new Date("Oct 8, 2022 18:50:00").getTime()
+let endTime;
 console.log(endTime)
 
-let userTime = {hour: "", min: "" }
+let userTime = {hour: "", min: "", clockFormat: ""}
 
 let intervalFunc;
 
@@ -24,22 +27,45 @@ function retrieveTime()
 {
 	userTime.min = document.getElementById("minArgTxt").value
 	userTime.hour = document.getElementById("hourArgTxt").value
+	userTime.clockFormat = userTime.hour + ":" + userTime.min
+	let dateTxt = "Oct 8, 2022 " + userTime.clockFormat + ":00"
+	console.log(dateTxt)
+	
+	endTime = new Date(dateTxt).getTime()
 }
 
 const timerFunc = () => {
 	intervalFunc = setInterval(function() {
 		let now = new Date().getTime()
+		
+		
 		let timeLeft = endTime - now
 		
-		let hours = Math.floor(timeLeft / (1000 * 60 * 60))
+		let hours = Math.floor(timeLeft / (1000 * 60 * 60))   //milliseconds * 1000 = seconds
+															  //seconds * 60 = minutes
+															  //minutes * 60 = hours
+															  
+		let minutesLeft = (timeLeft / (1000 * 60 * 60)) % 1   //remainder of hours, e.g. 2.2
+		minutesLeft = minutesLeft * 60			   	          //calculate minutes in remainder.
+															  //if remainder is 0.2 then remainder minutes is 12 minutes
+		
+		let secLeft = minutesLeft % 1                         //same procedure here
+		secLeft = secLeft * 60
+		
+		//remove remainder from minutesLeft and secLeft
+		minutesLeft = Math.floor(minutesLeft)
+		secLeft = Math.floor(secLeft)
+		
 		let minutes = Math.floor(timeLeft / (1000 * 60))
 		let seconds = Math.floor(timeLeft / 1000)
 		
-		console.log("seconds: " + seconds)
-		console.log("minutes: " + minutes + "\nhours: " + hours)
+		console.log("seconds: " + secLeft)
+		console.log("minutes Left: " + minutesLeft + "\nhours: " + hours)
 		
 		console.log("input hour: " + userTime.hour + "\t min: " + userTime.min)
-		}, 2000)
+		
+		document.getElementById("timeLeftUsr").innerHTML = hours + ":" + minutesLeft + ":" + secLeft
+		}, 1000)
 }
 
 
