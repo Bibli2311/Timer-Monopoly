@@ -7,7 +7,8 @@
 <p> Timer for Monopoly </p>
 
 <p>
-	<input type="text" id="minArg"> <button onclick="getMinArg()"> set minute for timer </button>
+	Hour: <input type="text" id="hourArgTxt"> 
+	Minute: <input type="text" id="minArgTxt"> <button onclick="retrieveTime()"> set clock time for timer </button>
 </p>
 <button onclick="">  </button> <br>
 
@@ -15,12 +16,14 @@
 let endTime = new Date("Oct 8, 2022 18:50:00").getTime()
 console.log(endTime)
 
+let userTime = {hour: "", min: "" }
+
 let intervalFunc;
 
-function getMinArg()
+function retrieveTime()
 {
-	let minArg = document.getElementById("minArg").value
-	console.log(minArg)
+	userTime.min = document.getElementById("minArgTxt").value
+	userTime.hour = document.getElementById("hourArgTxt").value
 }
 
 const timerFunc = () => {
@@ -34,7 +37,9 @@ const timerFunc = () => {
 		
 		console.log("seconds: " + seconds)
 		console.log("minutes: " + minutes + "\nhours: " + hours)
-		}, 1000)
+		
+		console.log("input hour: " + userTime.hour + "\t min: " + userTime.min)
+		}, 2000)
 }
 
 
