@@ -5,20 +5,35 @@
 </head>
 <body>
 <p> Timer for Monopoly </p>
+
+<p>
+	<input type="text" id="minArg"> <button onclick="getMinArg()"> set minute for timer </button>
+</p>
 <button onclick="">  </button> <br>
 
 <script>
-let endTime = new Date("Oct 10, 2022 18:50:00").getTime()
+let endTime = new Date("Oct 8, 2022 18:50:00").getTime()
 console.log(endTime)
 
 let intervalFunc;
+
+function getMinArg()
+{
+	let minArg = document.getElementById("minArg").value
+	console.log(minArg)
+}
 
 const timerFunc = () => {
 	intervalFunc = setInterval(function() {
 		let now = new Date().getTime()
 		let timeLeft = endTime - now
 		
-		console.log(timeLeft)
+		let hours = Math.floor(timeLeft / (1000 * 60 * 60))
+		let minutes = Math.floor(timeLeft / (1000 * 60))
+		let seconds = Math.floor(timeLeft / 1000)
+		
+		console.log("seconds: " + seconds)
+		console.log("minutes: " + minutes + "\nhours: " + hours)
 		}, 1000)
 }
 
